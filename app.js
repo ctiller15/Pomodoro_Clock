@@ -9,6 +9,8 @@ var breakSect = document.querySelector(".break");
 var decreaseButtons = document.querySelectorAll(".dec");
 var increaseButtons = document.querySelectorAll(".inc");
 
+var timer = document.querySelector(".timer");
+var start = document.querySelector(".start");
 // create a function that when called, increases the value.
 // It should update a desired element.
 
@@ -40,6 +42,14 @@ var primeButtons = (index, key, section ) => {
 
 // Both values must always be 1 or greater.
 
+// Trying out object.watch. It checks if a noted variable within a
+// specified object changes.
+lengthObj.watch('sessionLength', (id, old, newVal) => {
+	console.log("session length changed!");
+	timer.textContent = newVal;
+	return newVal;
+});
+
 // initializing the display.
 sessSect.textContent = lengthObj.sessionLength;
 breakSect.textContent = lengthObj.breakLength;
@@ -51,3 +61,8 @@ breakSect.textContent = lengthObj.breakLength;
 primeButtons(0, "breakLength", breakSect);
 
 primeButtons(1, "sessionLength", sessSect);
+
+start.addEventListener("click", () => {
+	// logging the total number of miliseconds.
+	console.log(lengthObj.sessionLength * 60 * 1000);
+});
