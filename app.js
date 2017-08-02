@@ -3,6 +3,9 @@ var lengthObj = {
 	breakLength: 5
 };
 
+var onBreak = false;
+var isComplete = false;
+
 var sessSect = document.querySelector(".session");
 var breakSect = document.querySelector(".break");
 
@@ -42,6 +45,26 @@ var primeButtons = (index, key, section ) => {
 
 // Both values must always be 1 or greater.
 
+// a basic function using setTimeout to count down for us.
+var countDown = (ms) => {
+	if(!isComplete){
+		if(!onBreak){
+			var decreasedTime = ms - 1000;
+			console.log(ms);
+			if(ms > 0){
+				// defining the timer on the object so I have access to it outside
+				// of the function scope.
+				lengthObj.timeLeft = setTimeout(() => {
+					countDown(decreasedTime);
+				}, 1000);
+			} else {
+				console.log("Timer has completed! Break time!");
+				onBreak = true;
+			}
+		}
+	}
+}
+
 // Trying out object.watch. It checks if a noted variable within a
 // specified object changes.
 lengthObj.watch('sessionLength', (id, old, newVal) => {
@@ -63,6 +86,10 @@ primeButtons(0, "breakLength", breakSect);
 primeButtons(1, "sessionLength", sessSect);
 
 start.addEventListener("click", () => {
+	countDown(lengthObj.sessionLength * 60 * 1000);
 	// logging the total number of miliseconds.
-	console.log(lengthObj.sessionLength * 60 * 1000);
+	// setInterval(() => {
+	// 	console.log("one second has passed.");
+	// }, 1000);
+	// console.log(lengthObj.sessionLength * 60 * 1000);
 });
