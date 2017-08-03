@@ -4,7 +4,7 @@ var lengthObj = {
 };
 
 var onBreak = false;
-var isComplete = false;
+var isRunning = false;
 
 var sessSect = document.querySelector(".session");
 var breakSect = document.querySelector(".break");
@@ -36,42 +36,67 @@ var decrement = (obj, key, varName) => {
 var primeButtons = (index, key, section ) => {
 	decreaseButtons[index].addEventListener("click", () => {
 		decrement(lengthObj, key, section);
+		if(key === "sessionLength"){
+			timer.textContent = lengthObj.sessionLength;
+		}
 	});
 
 	increaseButtons[index].addEventListener("click", () => {
 		increment(lengthObj, key, section);
+		if(key === "sessionLength"){
+			timer.textContent = lengthObj.sessionLength;
+		}
 	});
 }
 
 // Both values must always be 1 or greater.
 
 // a basic function using setTimeout to count down for us.
-var countDown = (ms) => {
-	if(!isComplete){
-		if(!onBreak){
-			var decreasedTime = ms - 1000;
-			console.log(ms);
-			if(ms > 0){
-				// defining the timer on the object so I have access to it outside
-				// of the function scope.
-				lengthObj.timeLeft = setTimeout(() => {
-					countDown(decreasedTime);
-				}, 1000);
-			} else {
-				console.log("Timer has completed! Break time!");
-				onBreak = true;
-			}
+var sessCountDown = (msSess, msBreak) => {
+	//debugger;
+	isRunning = true;
+	if(!onBreak){
+		var decreasedTime = msSess - 1000;
+		console.log(msSess);
+		if(msSess > 0){
+			// defining the timer on the object so I have access to it outside
+			// of the function scope.
+			lengthObj.timeLeft = setTimeout(() => {
+				sessCountDown(decreasedTime, msBreak);
+			}, 1000);
+		} else {
+			console.log("Timer has completed! Break time!");
+			onBreak = true;
+			// once this section is reached, the break begins!
+			breakCountDown(msBreak);
+		}
+	} 
+}
+
+var breakCountDown = (msBreak) => {
+	if(onBreak) {
+		// Now that we're on break, we can run the break timer.
+		var decreasedTime = msBreak - 1000;
+		console.log(msBreak);
+		if(msBreak > 0){
+			lengthObj.timeLeft = setTimeout( () => {
+				breakCountDown(decreasedTime);
+			}, 1000);
+		} else {
+			console.log("Timer has finished! Break over!");
+			onBreak = false;
+			isRunning = false;
 		}
 	}
 }
 
 // Trying out object.watch. It checks if a noted variable within a
 // specified object changes.
-lengthObj.watch('sessionLength', (id, old, newVal) => {
-	console.log("session length changed!");
-	timer.textContent = newVal;
-	return newVal;
-});
+// lengthObj.watch('sessionLength', (id, old, newVal) => {
+// 	console.log("session length changed!");
+// 	timer.textContent = newVal;
+// 	return newVal;
+// });
 
 // initializing the display.
 sessSect.textContent = lengthObj.sessionLength;
@@ -86,7 +111,7 @@ primeButtons(0, "breakLength", breakSect);
 primeButtons(1, "sessionLength", sessSect);
 
 start.addEventListener("click", () => {
-	countDown(lengthObj.sessionLength * 60 * 1000);
+	sessCountDown(lengthObj.sessionLength * 60 * 1000, lengthObj.breakLength * 60 * 1000);
 	// logging the total number of miliseconds.
 	// setInterval(() => {
 	// 	console.log("one second has passed.");
