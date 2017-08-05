@@ -12,7 +12,8 @@ var breakSect = document.querySelector(".break");
 var decreaseButtons = document.querySelectorAll(".dec");
 var increaseButtons = document.querySelectorAll(".inc");
 
-var timer = document.querySelector(".timer");
+var sessTimer = document.querySelector(".sessTimer");
+var breakTimer = document.querySelector(".breakTimer");
 var start = document.querySelector(".start");
 // create a function that when called, increases the value.
 // It should update a desired element.
@@ -37,14 +38,14 @@ var primeButtons = (index, key, section ) => {
 	decreaseButtons[index].addEventListener("click", () => {
 		decrement(lengthObj, key, section);
 		if(key === "sessionLength"){
-			timer.textContent = lengthObj.sessionLength;
+			sessTimer.textContent = lengthObj.sessionLength;
 		}
 	});
 
 	increaseButtons[index].addEventListener("click", () => {
 		increment(lengthObj, key, section);
 		if(key === "sessionLength"){
-			timer.textContent = lengthObj.sessionLength;
+			sessTimer.textContent = lengthObj.sessionLength;
 		}
 	});
 }
@@ -58,6 +59,11 @@ var sessCountDown = (msSess, msBreak) => {
 	if(!onBreak){
 		var decreasedTime = msSess - 1000;
 		console.log(msSess);
+		let minutes = Math.floor(msSess / 60000);
+		let seconds = (msSess - (minutes * 60000))/1000;
+		let currentTime = clockTime(minutes, seconds);
+		console.log(currentTime);
+		sessTimer.textContent = currentTime;
 		if(msSess > 0){
 			// defining the timer on the object so I have access to it outside
 			// of the function scope.
@@ -78,6 +84,10 @@ var breakCountDown = (msBreak) => {
 		// Now that we're on break, we can run the break timer.
 		var decreasedTime = msBreak - 1000;
 		console.log(msBreak);
+		let minutes = Math.floor(msBreak / 60000);
+		let seconds = (msBreak - (minutes * 60000))/1000;
+		let currentTime = clockTime(minutes, seconds);
+		breakTimer.textContent = currentTime;
 		if(msBreak > 0){
 			lengthObj.timeLeft = setTimeout( () => {
 				breakCountDown(decreasedTime);
@@ -87,6 +97,14 @@ var breakCountDown = (msBreak) => {
 			onBreak = false;
 			isRunning = false;
 		}
+	}
+}
+
+var clockTime = (mins, secs) => {
+	if(secs >= 10){
+		return mins + ":" + secs;
+	} else if(secs < 10) {
+		return mins + ":0" + secs;
 	}
 }
 
