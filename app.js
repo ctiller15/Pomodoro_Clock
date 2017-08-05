@@ -1,10 +1,13 @@
 var lengthObj = {
 	sessionLength: 25,
-	breakLength: 5
+	breakLength: 5,
+	curSessTime: 0,
+	curBreakTime: 0
 };
 
 var onBreak = false;
 var isRunning = false;
+var paused = false;
 
 var sessSect = document.querySelector(".session");
 var breakSect = document.querySelector(".break");
@@ -15,6 +18,7 @@ var increaseButtons = document.querySelectorAll(".inc");
 var sessTimer = document.querySelector(".sessTimer");
 var breakTimer = document.querySelector(".breakTimer");
 var start = document.querySelector(".start");
+var pause = document.querySelector(".pause");
 // create a function that when called, increases the value.
 // It should update a desired element.
 
@@ -58,7 +62,7 @@ var sessCountDown = (msSess, msBreak) => {
 	isRunning = true;
 	if(!onBreak){
 		var decreasedTime = msSess - 1000;
-		console.log(msSess);
+		lengthObj.curSessTime = msSess;
 		let minutes = Math.floor(msSess / 60000);
 		let seconds = (msSess - (minutes * 60000))/1000;
 		let currentTime = clockTime(minutes, seconds);
@@ -83,6 +87,7 @@ var breakCountDown = (msBreak) => {
 	if(onBreak) {
 		// Now that we're on break, we can run the break timer.
 		var decreasedTime = msBreak - 1000;
+		lengthObj.curBreakTime = msBreak;
 		console.log(msBreak);
 		let minutes = Math.floor(msBreak / 60000);
 		let seconds = (msBreak - (minutes * 60000))/1000;
@@ -108,14 +113,6 @@ var clockTime = (mins, secs) => {
 	}
 }
 
-// Trying out object.watch. It checks if a noted variable within a
-// specified object changes.
-// lengthObj.watch('sessionLength', (id, old, newVal) => {
-// 	console.log("session length changed!");
-// 	timer.textContent = newVal;
-// 	return newVal;
-// });
-
 // initializing the display.
 sessSect.textContent = lengthObj.sessionLength;
 breakSect.textContent = lengthObj.breakLength;
@@ -129,10 +126,36 @@ primeButtons(0, "breakLength", breakSect);
 primeButtons(1, "sessionLength", sessSect);
 
 start.addEventListener("click", () => {
+	clearTimeout(lengthObj.timeLeft);
+	paused = false;
+	start.textContent = "reset";
+	breakTimer.textContent = `${lengthObj.breakLength}:00`;
 	sessCountDown(lengthObj.sessionLength * 60 * 1000, lengthObj.breakLength * 60 * 1000);
-	// logging the total number of miliseconds.
-	// setInterval(() => {
-	// 	console.log("one second has passed.");
-	// }, 1000);
-	// console.log(lengthObj.sessionLength * 60 * 1000);
+});
+
+pause.addEventListener("click", () => {
+	// if not paused, it stores the current value of all given variables.
+	if(!paused){
+		console.log("pausing");
+		clearTimeout(lengthObj.timeLeft);
+		// The case where we're still on the main session.
+		// We store the current time into the lengthObj object.
+		// if(!onBreak){
+		// 	lengthObj.curSessTime = sessTimer.textContent;
+		// 	console.log(lengthObj.curSessTime);
+		// } else if(onBreak){
+		// 	// storing the current time into curBreakTime;
+		// 	lengthObj.curBreakTime = breakTimer.textContent;
+		// 	console.log(breakObj.curBreakTime);
+		// }
+	} else if(paused){
+		// if currently paused, it resumes with the currently stored variable.
+		console.log("resuming");
+		if(!onBreak){
+			sessCountDown(lengthObj.curSessTime);
+		} else if(onBreak){
+			breakCountDown(lengthObj.curBreakTime);
+		}
+	}
+	paused = !paused;
 });
