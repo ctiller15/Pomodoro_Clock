@@ -19,7 +19,9 @@ var decreaseButtons = document.querySelectorAll(".dec");
 var increaseButtons = document.querySelectorAll(".inc");
 
 var sessTimer = document.querySelector(".sessTimer");
+var sessTime = document.querySelector(".sessTime");
 var breakTimer = document.querySelector(".breakTimer");
+var breakTime = document.querySelector(".breakTimeLeft");
 var start = document.querySelector(".start");
 var pause = document.querySelector(".pause");
 // create a function that when called, increases the value.
@@ -45,18 +47,18 @@ var primeButtons = (index, key, section ) => {
 	decreaseButtons[index].addEventListener("click", () => {
 		decrement(lengthObj, key, section);
 		if(key === "sessionLength"){
-			sessTimer.textContent = lengthObj.sessionLength;
+			sessTime.textContent = lengthObj.sessionLength;
 		} else if (key === "breakLength"){
-			breakTimer.textContent = lengthObj.breakLength;
+			breakTime.textContent = lengthObj.breakLength;
 		}
 	});
 
 	increaseButtons[index].addEventListener("click", () => {
 		increment(lengthObj, key, section);
 		if(key === "sessionLength"){
-			sessTimer.textContent = lengthObj.sessionLength;
+			sessTime.textContent = lengthObj.sessionLength;
 		} else if (key === "breakLength"){
-			breakTimer.textContent = lengthObj.breakLength;
+			breakTime.textContent = lengthObj.breakLength;
 		}
 	});
 }
@@ -144,6 +146,7 @@ start.addEventListener("click", () => {
 	clearTimeout(lengthObj.timeLeft);
 	paused = false;
 	start.textContent = "reset";
+	onBreak = false;
 	breakTimer.textContent = `${lengthObj.breakLength}:00`;
 	sessCountDown(lengthObj.sessionLength * 60 * 1000, lengthObj.breakLength * 60 * 1000);
 });

@@ -4,13 +4,18 @@
 }
 
 .breakTime{
-	height: 250px;
+	height: 400px;
 	width: 30%;
+	position: relative;
 }
 
 .breakBar{
 	height: 100%;
+	width: 100%;
 	background: green;
+	position: absolute;
+	bottom: 0;
+	z-index: -1;
 }
 
 #clock{
@@ -18,11 +23,40 @@
 }
 
 .sessionTime{
-	height: 250px;
+	height: 400px;
 	width: 30%;
+	position: relative;
 }
 
 .sessBar{
 	height: 100%;
+	width: 100%;
 	background: red;
+	position: absolute;
+	bottom: 0;
+	z-index: -1;
+}
+
+.dec{
+	position: absolute;
+	top: 50%;
+	left: 20%;
+}
+
+.inc{
+	position: absolute;
+	top: 50%;
+	right: 20%;
+}
+
+.session{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.break{
+	position: absolute;
+	top: 50%;
+	left: 50%;
 }
