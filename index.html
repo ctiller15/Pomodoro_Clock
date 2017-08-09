@@ -7,19 +7,23 @@
 </head>
 <body>
 <h1>Pomodoro clock</h1>
+<!-- The main clock container -->
 <div id="Pomodoro_Clock">
+<!-- the first third. Holds everything related to the break. -->
 	<div class="breakTime">
 		<button class="dec">Decrease</button>
 		<div class="break"></div>
 		<button class="inc">Increase</button>
 		<div class="breakBar"></div>
 	</div>
+<!-- The second third. Holds everything related to the actual clock. -->
 	<div id="clock">
 		<div class="sessTimer"><span class="sessTime">25</span> minute session</div>
 		<button class="start">start clock</button>
 		<button class="pause">pause</button>
 		<div class="breakTimer"><span class="breakTimeLeft">5</span> minute break</div>
 	</div>
+<!-- The final third. Holds everything related to the session timer. -->
 	<div class="sessionTime">
 		<button class="dec">Decrease</button>
 		<div class="session"></div>

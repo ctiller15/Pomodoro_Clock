@@ -1,3 +1,7 @@
+h1{
+	text-align: center;
+}
+
 #Pomodoro_Clock{
 	display: flex;
 	justify-content: space-between;
