@@ -1,0 +1,28 @@
+#Pomodoro_Clock{
+	display: flex;
+	justify-content: space-between;
+}
+
+.breakTime{
+	height: 250px;
+	width: 30%;
+}
+
+.breakBar{
+	height: 100%;
+	background: green;
+}
+
+#clock{
+	width: 30%;
+}
+
+.sessionTime{
+	height: 250px;
+	width: 30%;
+}
+
+.sessBar{
+	height: 100%;
+	background: red;
+}

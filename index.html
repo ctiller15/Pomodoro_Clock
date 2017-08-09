@@ -7,22 +7,27 @@
 </head>
 <body>
 <h1>Pomodoro clock</h1>
-<div class="breakTime">
-	<button class="dec">Decrease</button>
-	<div class="break"></div>
-	<button class="inc">Increase</button>
+<div id="Pomodoro_Clock">
+	<div class="breakTime">
+		<button class="dec">Decrease</button>
+		<div class="break"></div>
+		<button class="inc">Increase</button>
+		<div class="breakBar"></div>
+	</div>
+	<div id="clock">
+		<div class="sessTimer"><span class="sessTime">25</span> minutes</div>
+		<button class="start">start clock</button>
+		<button class="pause">pause</button>
+		<div class="breakTimer"><span class="breakTime">5</span> minutes</div>
+	</div>
+	<div class="sessionTime">
+		<button class="dec">Decrease</button>
+		<div class="session"></div>
+		<button class="inc">Increase</button>
+		<div class="sessBar"></div>
+	</div>
 </div>
-<div class="sessionTime">
-	<button class="dec">Decrease</button>
-	<div class="session"></div>
-	<button class="inc">Increase</button>
-</div>
-<div id="clock">
-	<div class="sessTimer"><span class="sessTime">25</span> minutes</div>
-	<button class="start">start clock</button>
-	<button class="pause">pause</button>
-	<div class="breakTimer"><span class="breakTime">5</span> minutes</div>
-</div>
+
 
 
 <script type="text/javascript" src="app.js"></script>

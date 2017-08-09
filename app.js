@@ -2,7 +2,8 @@ var lengthObj = {
 	sessionLength: 25,
 	breakLength: 5,
 	curSessTime: 0,
-	curBreakTime: 0
+	curBreakTime: 0,
+	timerHeight: 0
 };
 
 var onBreak = false;
@@ -10,7 +11,9 @@ var isRunning = false;
 var paused = false;
 
 var sessSect = document.querySelector(".session");
+var sessBar = document.querySelector(".sessBar");
 var breakSect = document.querySelector(".break");
+var breakBar = document.querySelector(".breakBar")
 
 var decreaseButtons = document.querySelectorAll(".dec");
 var increaseButtons = document.querySelectorAll(".inc");
@@ -43,6 +46,8 @@ var primeButtons = (index, key, section ) => {
 		decrement(lengthObj, key, section);
 		if(key === "sessionLength"){
 			sessTimer.textContent = lengthObj.sessionLength;
+		} else if (key === "breakLength"){
+			breakTimer.textContent = lengthObj.breakLength;
 		}
 	});
 
@@ -50,6 +55,8 @@ var primeButtons = (index, key, section ) => {
 		increment(lengthObj, key, section);
 		if(key === "sessionLength"){
 			sessTimer.textContent = lengthObj.sessionLength;
+		} else if (key === "breakLength"){
+			breakTimer.textContent = lengthObj.breakLength;
 		}
 	});
 }
@@ -61,6 +68,8 @@ var sessCountDown = (msSess, msBreak) => {
 	//debugger;
 	isRunning = true;
 	if(!onBreak){
+		console.log(`time left: ${((msSess / lengthObj.timerHeight) * 100).toFixed(2)}%`);
+		sessBar.style.height = `${((msSess / lengthObj.timerHeight) * 100).toFixed(2)}%`;
 		var decreasedTime = msSess - 1000;
 		lengthObj.curSessTime = msSess;
 		let minutes = Math.floor(msSess / 60000);
@@ -78,6 +87,7 @@ var sessCountDown = (msSess, msBreak) => {
 			console.log("Timer has completed! Break time!");
 			onBreak = true;
 			// once this section is reached, the break begins!
+			lengthObj.timerHeight = msBreak;
 			breakCountDown(msBreak);
 		}
 	} 
@@ -86,6 +96,8 @@ var sessCountDown = (msSess, msBreak) => {
 var breakCountDown = (msBreak) => {
 	if(onBreak) {
 		// Now that we're on break, we can run the break timer.
+		console.log(`time left: ${((msBreak / lengthObj.timerHeight) * 100).toFixed(2)}%`);
+		breakBar.style.height = `${((msBreak / lengthObj.timerHeight) * 100).toFixed(2)}%`;
 		var decreasedTime = msBreak - 1000;
 		lengthObj.curBreakTime = msBreak;
 		console.log(msBreak);
@@ -125,7 +137,10 @@ primeButtons(0, "breakLength", breakSect);
 
 primeButtons(1, "sessionLength", sessSect);
 
+// It can function as both a pause and a reset button.
 start.addEventListener("click", () => {
+	lengthObj.timerHeight = lengthObj.sessionLength * 60 * 1000;
+	console.log(lengthObj.timerHeight);
 	clearTimeout(lengthObj.timeLeft);
 	paused = false;
 	start.textContent = "reset";
@@ -138,16 +153,6 @@ pause.addEventListener("click", () => {
 	if(!paused){
 		console.log("pausing");
 		clearTimeout(lengthObj.timeLeft);
-		// The case where we're still on the main session.
-		// We store the current time into the lengthObj object.
-		// if(!onBreak){
-		// 	lengthObj.curSessTime = sessTimer.textContent;
-		// 	console.log(lengthObj.curSessTime);
-		// } else if(onBreak){
-		// 	// storing the current time into curBreakTime;
-		// 	lengthObj.curBreakTime = breakTimer.textContent;
-		// 	console.log(breakObj.curBreakTime);
-		// }
 	} else if(paused){
 		// if currently paused, it resumes with the currently stored variable.
 		console.log("resuming");
