@@ -59,15 +59,15 @@ h1{
 }
 
 #clock{
-	height: 5vh;
-	width: 50%;
+	height: 13vh;
+	width: 75%;
 	border: 1px solid purple;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;
 	right: 0;
-	bottom: -65vh;
+	bottom: -62vh;
 }
 
 .sessionTime{
@@ -157,11 +157,36 @@ h1{
 	background: black;	
 }
 
+.timer{
+	text-align: center;
+	font-size: 250%;
+}
+
+.message{
+	text-align: center;
+	font-size: 100%;
+}
+
 button{
 	height: 10vh;
 	width: 10vh;
+	font-size: 200%;
 }
 
 #clock button{
-	height: 5vh;
+	height: 13vh;
+	width: 30%;
+	font-size: 150%;
+}
+
+#clock .start{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+#clock .pause{
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }

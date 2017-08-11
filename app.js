@@ -25,6 +25,7 @@ var decreaseButtons = document.querySelectorAll(".dec");
 var increaseButtons = document.querySelectorAll(".inc");
 
 // selecting the timers, the start, and pause buttons.
+var timer = document.querySelector(".timer");
 var sessTimer = document.querySelector(".sessTimer");
 var sessTime = document.querySelector(".sessTime");
 var breakTimer = document.querySelector(".breakTimer");
@@ -49,25 +50,16 @@ var decrement = (obj, key, varName) => {
 	varName.textContent = obj[key];	
 }
 
-// a helper for the "primebuttons" function.
-var checkKeyAndUpdate = (key) => {
-	if(key === "sessionLength"){
-		sessTime.textContent = timeObj.sessionLength;
-	} else if (key === "breakLength"){
-		breakTime.textContent = timeObj.breakLength;
-	}
-}
-
 // prepares the buttons to get used.
 var primeButtons = (index, key, section ) => {
 	decreaseButtons[index].addEventListener("click", () => {
 		decrement(timeObj, key, section);
-		checkKeyAndUpdate(key);
+		// checkKeyAndUpdate(key);
 	});
 
 	increaseButtons[index].addEventListener("click", () => {
 		increment(timeObj, key, section);
-		checkKeyAndUpdate(key);
+		// checkKeyAndUpdate(key);
 	});
 }
 
@@ -76,7 +68,7 @@ var sessCountDown = (msSess, msBreak) => {
 	isRunning = true;
 	if(!onBreak){
 		sessBar.style.height = `${((msSess / timeObj.timerHeight) * 100).toFixed(2)}%`;
-		var decreasedTime = runClock(msSess, sessBar, sessTimer, "curSessTime");
+		var decreasedTime = runClock(msSess, sessBar, timer, "curSessTime");
 		if(msSess > 0){
 			// defining the timer on the object so I have access to it outside of the function scope.
 			timeObj.timeLeft = setTimeout(() => {
@@ -98,7 +90,7 @@ var breakCountDown = (msBreak) => {
 		breakBar.style.height = `${((1.00 - (msBreak / timeObj.timerHeight)) * 100).toFixed(2)}%`;
 		console.log(breakBar.style.height);
 		// Now that we're on break, we can run the break timer.
-		var decreasedTime = runClock(msBreak, breakBar, breakTimer, "curbreakTime");
+		var decreasedTime = runClock(msBreak, breakBar, timer, "curbreakTime");
 		if(msBreak > 0){
 			timeObj.timeLeft = setTimeout( () => {
 				breakCountDown(decreasedTime);
@@ -146,12 +138,10 @@ primeButtons(1, "sessionLength", sessSect);
 start.addEventListener("click", () => {
 	breakBar.style.height = "0%";
 	timeObj.timerHeight = timeObj.sessionLength * 60 * 1000;
-	console.log(timeObj.timerHeight);
 	clearTimeout(timeObj.timeLeft);
 	paused = false;
-	start.textContent = "reset";
+	start.innerHTML = '<i class="fa fa-refresh" aria-hidden="true"></i>';
 	onBreak = false;
-	breakTimer.textContent = `${timeObj.breakLength}:00`;
 	sessCountDown(timeObj.sessionLength * 60 * 1000, timeObj.breakLength * 60 * 1000);
 });
 
@@ -160,6 +150,7 @@ pause.addEventListener("click", () => {
 	if(!paused){
 		console.log("pausing");
 		clearTimeout(timeObj.timeLeft);
+		pause.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
 	} else if(paused){
 		// if currently paused, it resumes with the currently stored variable.
 		console.log("resuming");
@@ -168,6 +159,7 @@ pause.addEventListener("click", () => {
 		} else if(onBreak){
 			breakCountDown(timeObj.curBreakTime);
 		}
+		pause.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
 	}
 	paused = !paused;
 });

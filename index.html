@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Pomodoro clock</title>
-<!-- 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -14,9 +14,9 @@
 <!-- the first third. Holds everything related to the break. -->
 	<div class="breakTime">
 		<h2>Break</h2>
-		<button class="dec">Decrease</button>
+		<button class="dec"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
 		<div class="break"></div>
-		<button class="inc">Increase</button>
+		<button class="inc"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 		<div class="breakBar"></div>
 	</div>
 <!-- The second third. Holds everything related to the actual clock. -->
@@ -28,16 +28,16 @@
 <!-- The final third. Holds everything related to the session timer. -->
 	<div class="sessionTime">
 		<h2>Session</h2>
-		<button class="dec">Decrease</button>
+		<button class="dec"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
 		<div class="session"></div>
-		<button class="inc">Increase</button>
+		<button class="inc"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 		<div class="sessBar"></div>
 	</div>
 	<div id="clock">
-		<div class="sessTimer"><span class="sessTime">25</span> minute session</div>
-		<button class="start">start clock</button>
-		<button class="pause">pause</button>
-		<div class="breakTimer"><span class="breakTimeLeft">5</span> minute break</div>
+		<div class="timer">25:00</div>
+		<div class="message">message</div>
+		<button class="start"><i class="fa fa-play" aria-hidden="true"></i></button>
+		<button class="pause"><i class="fa fa-pause" aria-hidden="true"></i></button>
 	</div>
 </div>
 
