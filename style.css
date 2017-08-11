@@ -1,5 +1,6 @@
 body{
 	font-size: 3vh;
+	font-family: "Saira Semi Condensed";
 }
 
 h1{
@@ -33,14 +34,23 @@ h1{
 
 .break{
 	position: absolute;
-	left: -30%;
-	top: 55%;
+	left: -35%;
+	top: 45%;
+	font-size: 200%;
+}
+
+.break+br+p{
+	position: absolute;
+	left: -50%;
+	top: 45%;
+	font-size: 200%;
 }
 
 .breakTime h2{
 	position: absolute;
-	left: -50%;
+	left: -45%;
 	top: 10%;
+	font-size: 130%;
 }
 
 .breakTime .inc{
@@ -58,17 +68,7 @@ h1{
 	z-index: -1;
 }
 
-#clock{
-	height: 13vh;
-	width: 75%;
-	border: 1px solid purple;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-	bottom: -62vh;
-}
+
 
 .sessionTime{
 	height: 60vh;
@@ -88,14 +88,23 @@ h1{
 
 .session{
 	position: absolute;
-	right: -30%;
-	top: 55%;
+	right: -35%;
+	top: 45%;
+	font-size: 200%;
+}
+
+.session+br+p{
+	position: absolute;
+	right: -50%;
+	top: 45%;
+	font-size: 200%;
 }
 
 .sessionTime h2{
 	position: absolute;
 	right: -50%;
 	top: 10%;
+	font-size: 130%;
 }
 
 .sessionTime .inc{
@@ -159,12 +168,14 @@ h1{
 
 .timer{
 	text-align: center;
-	font-size: 250%;
+	font-size: 220%;
 }
 
 .message{
+	position: relative;
 	text-align: center;
 	font-size: 100%;
+	bottom: 5%;
 }
 
 button{
@@ -173,8 +184,20 @@ button{
 	font-size: 200%;
 }
 
+#clock{
+	height: 14vh;
+	width: 80%;
+	border: 1px solid purple;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	bottom: -62vh;
+}
+
 #clock button{
-	height: 13vh;
+	height: 100%;
 	width: 30%;
 	font-size: 150%;
 }

@@ -13,6 +13,8 @@ var onBreak = false;
 var isRunning = false;
 var paused = false;
 
+// Selecting the display message
+var message = document.querySelector(".message");
 
 // selecting sections with respective bars.
 var sessSect = document.querySelector(".session");
@@ -54,17 +56,23 @@ var decrement = (obj, key, varName) => {
 var primeButtons = (index, key, section ) => {
 	decreaseButtons[index].addEventListener("click", () => {
 		decrement(timeObj, key, section);
-		// checkKeyAndUpdate(key);
+		if(!isRunning){
+			timer.textContent = timeObj.sessionLength + ":00";
+		}
 	});
 
 	increaseButtons[index].addEventListener("click", () => {
 		increment(timeObj, key, section);
-		// checkKeyAndUpdate(key);
+		if(!isRunning){
+			timer.textContent = timeObj.sessionLength + ":00";
+		}
 	});
+
 }
 
 // a basic function using setTimeout to count down for us.
-var sessCountDown = (msSess, msBreak) => {
+var sessCountDown = (msSess) => {
+	msBreak = timeObj.breakLength * 60 * 1000;
 	isRunning = true;
 	if(!onBreak){
 		sessBar.style.height = `${((msSess / timeObj.timerHeight) * 100).toFixed(2)}%`;
@@ -75,11 +83,15 @@ var sessCountDown = (msSess, msBreak) => {
 				sessCountDown(decreasedTime, msBreak);
 			}, 1000);
 		} else {
+			message.textContent = "Time up!"
 			console.log("Timer has completed! Break time!");
 			onBreak = true;
 			// once this section is reached, the break begins!
 			timeObj.timerHeight = msBreak;
-			breakCountDown(msBreak);
+			console.log(timeObj.timerHeight);
+			setTimeout(() => {
+				breakCountDown(msBreak);
+			}, 5000);
 		}
 	} 
 }
@@ -87,15 +99,19 @@ var sessCountDown = (msSess, msBreak) => {
 // similar to the other one. Counts down for the other timer.
 var breakCountDown = (msBreak) => {
 	if(onBreak) {
+		message.textContent = "recharging...";
 		breakBar.style.height = `${((1.00 - (msBreak / timeObj.timerHeight)) * 100).toFixed(2)}%`;
 		console.log(breakBar.style.height);
 		// Now that we're on break, we can run the break timer.
-		var decreasedTime = runClock(msBreak, breakBar, timer, "curbreakTime");
+		var decreasedTime = runClock(msBreak, breakBar, timer, "curBreakTime");
+		console.log(decreasedTime);
+		console.log(msBreak);
 		if(msBreak > 0){
 			timeObj.timeLeft = setTimeout( () => {
 				breakCountDown(decreasedTime);
 			}, 1000);
 		} else {
+			message.textContent = "recharged"
 			console.log("Timer has finished! Break over!");
 			onBreak = false;
 			isRunning = false;
@@ -110,6 +126,7 @@ var runClock = (msTime, bar, timer, timeKey) => {
 	let minutes = Math.floor(msTime / 60000);
 	let seconds = (msTime - (minutes * 60000))/1000;
 	let currentTime = clockTime(minutes, seconds);
+	console.log(currentTime);
 	timer.textContent = currentTime;
 	return decreasedTime;
 }
@@ -136,6 +153,7 @@ primeButtons(1, "sessionLength", sessSect);
 
 // It can function as both a pause and a reset button.
 start.addEventListener("click", () => {
+	message.textContent = "running";
 	breakBar.style.height = "0%";
 	timeObj.timerHeight = timeObj.sessionLength * 60 * 1000;
 	clearTimeout(timeObj.timeLeft);
@@ -148,15 +166,20 @@ start.addEventListener("click", () => {
 pause.addEventListener("click", () => {
 	// if not paused, it stores the current value of all given variables.
 	if(!paused){
+		message.textContent = "paused";
 		console.log("pausing");
 		clearTimeout(timeObj.timeLeft);
 		pause.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
 	} else if(paused){
 		// if currently paused, it resumes with the currently stored variable.
+		message.textContent = "running";
 		console.log("resuming");
 		if(!onBreak){
+			console.log("resuming work");
 			sessCountDown(timeObj.curSessTime);
 		} else if(onBreak){
+			console.log("resuming break");
+			console.log(timeObj.curBreakTime);
 			breakCountDown(timeObj.curBreakTime);
 		}
 		pause.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
