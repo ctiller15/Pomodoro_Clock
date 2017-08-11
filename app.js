@@ -35,6 +35,11 @@ var breakTime = document.querySelector(".breakTimeLeft");
 var start = document.querySelector(".start");
 var pause = document.querySelector(".pause");
 
+var body = document.querySelector("body");
+var fa = document.querySelectorAll('.fa');
+var audio = document.querySelector("audio");
+
+
 
 // When called, increases value
 var increment = (obj, key, varName) => {
@@ -85,10 +90,15 @@ var sessCountDown = (msSess) => {
 		} else {
 			message.textContent = "Time up!"
 			console.log("Timer has completed! Break time!");
+			audio.play();
 			onBreak = true;
 			// once this section is reached, the break begins!
 			timeObj.timerHeight = msBreak;
 			console.log(timeObj.timerHeight);
+			body.style.color = "#00FF0D";
+			fa.forEach(function(elem){
+				elem.style.color = "#00FF0D";
+			});
 			setTimeout(() => {
 				breakCountDown(msBreak);
 			}, 5000);
@@ -159,6 +169,7 @@ start.addEventListener("click", () => {
 	clearTimeout(timeObj.timeLeft);
 	paused = false;
 	start.innerHTML = '<i class="fa fa-refresh" aria-hidden="true"></i>';
+	start.style.color = "#FFC800";
 	onBreak = false;
 	sessCountDown(timeObj.sessionLength * 60 * 1000, timeObj.breakLength * 60 * 1000);
 });
@@ -169,7 +180,12 @@ pause.addEventListener("click", () => {
 		message.textContent = "paused";
 		console.log("pausing");
 		clearTimeout(timeObj.timeLeft);
-		pause.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+		if(!onBreak){
+			pause.innerHTML = '<i class="fa fa-play before" aria-hidden="true"></i>';
+		} else if(onBreak){
+			pause.innerHTML = '<i class="fa fa-play after" aria-hidden="true"></i>';
+		}
+
 	} else if(paused){
 		// if currently paused, it resumes with the currently stored variable.
 		message.textContent = "running";
@@ -177,12 +193,19 @@ pause.addEventListener("click", () => {
 		if(!onBreak){
 			console.log("resuming work");
 			sessCountDown(timeObj.curSessTime);
+			pause.innerHTML = '<i class="fa fa-pause before" aria-hidden="true"></i>';
 		} else if(onBreak){
 			console.log("resuming break");
 			console.log(timeObj.curBreakTime);
 			breakCountDown(timeObj.curBreakTime);
+			pause.innerHTML = '<i class="fa fa-pause after" aria-hidden="true"></i>';
 		}
-		pause.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i>';
+
 	}
 	paused = !paused;
+});
+
+body.style.color = 	"#FFC800";
+fa.forEach(function(elem){
+	elem.style.color = "#FFC800";
 });

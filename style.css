@@ -1,6 +1,16 @@
+*{
+	background: none;
+	border: none;
+	-webkit-transition: color 5s;
+	transition: color 5s;
+	-webkit-transition: height .9s linear;
+	transition: height .9s linear;
+}
+
 body{
 	font-size: 3vh;
 	font-family: "Saira Semi Condensed";
+	background: #18191A;
 }
 
 h1{
@@ -62,13 +72,11 @@ h1{
 .breakBar{
 	height: 0%;
 	width: 100%;
-	background: green;
+	background: #00FF0D;
 	position: absolute;
 	bottom: 0;
 	z-index: -1;
 }
-
-
 
 .sessionTime{
 	height: 60vh;
@@ -116,7 +124,7 @@ h1{
 .sessBar{
 	height: 100%;
 	width: 100%;
-	background: red;
+	background: #FFC800;
 	position: absolute;
 	bottom: 0;
 	z-index: -1;
@@ -184,10 +192,17 @@ button{
 	font-size: 200%;
 }
 
+.before:hover{
+	border: 1px solid #FFC800;
+}
+
+.after:hover{
+	border: 1px solid #00FF0D;
+}
+
 #clock{
 	height: 14vh;
 	width: 80%;
-	border: 1px solid purple;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
@@ -212,4 +227,17 @@ button{
 	position: absolute;
 	bottom: 0;
 	right: 0;
+}
+
+.after{
+	color: #00FF0D;
+}
+
+.before{
+	color: #FFC800;
+}
+
+.fa{
+	-webkit-transition: color 5s;
+	transition: color 5s;
 }
