@@ -75,6 +75,7 @@ var primeButtons = (index, key, section ) => {
 var sessCountDown = (msSess, msBreak) => {
 	isRunning = true;
 	if(!onBreak){
+		sessBar.style.height = `${((msSess / timeObj.timerHeight) * 100).toFixed(2)}%`;
 		var decreasedTime = runClock(msSess, sessBar, sessTimer, "curSessTime");
 		if(msSess > 0){
 			// defining the timer on the object so I have access to it outside of the function scope.
@@ -94,6 +95,8 @@ var sessCountDown = (msSess, msBreak) => {
 // similar to the other one. Counts down for the other timer.
 var breakCountDown = (msBreak) => {
 	if(onBreak) {
+		breakBar.style.height = `${((1.00 - (msBreak / timeObj.timerHeight)) * 100).toFixed(2)}%`;
+		console.log(breakBar.style.height);
 		// Now that we're on break, we can run the break timer.
 		var decreasedTime = runClock(msBreak, breakBar, breakTimer, "curbreakTime");
 		if(msBreak > 0){
@@ -109,7 +112,7 @@ var breakCountDown = (msBreak) => {
 }
 
 var runClock = (msTime, bar, timer, timeKey) => {
-	bar.style.height = `${((msTime / timeObj.timerHeight) * 100).toFixed(2)}%`;
+	
 	var decreasedTime = msTime - 1000;
 	timeObj[timeKey] = msTime;
 	let minutes = Math.floor(msTime / 60000);
@@ -141,6 +144,7 @@ primeButtons(1, "sessionLength", sessSect);
 
 // It can function as both a pause and a reset button.
 start.addEventListener("click", () => {
+	breakBar.style.height = "0%";
 	timeObj.timerHeight = timeObj.sessionLength * 60 * 1000;
 	console.log(timeObj.timerHeight);
 	clearTimeout(timeObj.timeLeft);

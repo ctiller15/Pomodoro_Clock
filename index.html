@@ -3,32 +3,41 @@
 <head>
 	<meta charset="utf-8">
 	<title>Pomodoro clock</title>
+<!-- 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<!-- <i class="fa fa-battery-empty"></i> -->
 <h1>Pomodoro clock</h1>
 <!-- The main clock container -->
 <div id="Pomodoro_Clock">
 <!-- the first third. Holds everything related to the break. -->
 	<div class="breakTime">
+		<h2>Break</h2>
 		<button class="dec">Decrease</button>
 		<div class="break"></div>
 		<button class="inc">Increase</button>
 		<div class="breakBar"></div>
 	</div>
 <!-- The second third. Holds everything related to the actual clock. -->
+	<div class="battery">
+		<div class="bar1"></div>
+		<div class="bar2"></div>
+		<div class="bar3"></div>
+	</div>
+<!-- The final third. Holds everything related to the session timer. -->
+	<div class="sessionTime">
+		<h2>Session</h2>
+		<button class="dec">Decrease</button>
+		<div class="session"></div>
+		<button class="inc">Increase</button>
+		<div class="sessBar"></div>
+	</div>
 	<div id="clock">
 		<div class="sessTimer"><span class="sessTime">25</span> minute session</div>
 		<button class="start">start clock</button>
 		<button class="pause">pause</button>
 		<div class="breakTimer"><span class="breakTimeLeft">5</span> minute break</div>
-	</div>
-<!-- The final third. Holds everything related to the session timer. -->
-	<div class="sessionTime">
-		<button class="dec">Decrease</button>
-		<div class="session"></div>
-		<button class="inc">Increase</button>
-		<div class="sessBar"></div>
 	</div>
 </div>
 

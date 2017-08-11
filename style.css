@@ -1,20 +1,56 @@
+body{
+	font-size: 3vh;
+}
+
 h1{
 	text-align: center;
+	height: 10vh;
 }
 
 #Pomodoro_Clock{
+	height: 80vh;
+	position: relative;
 	display: flex;
-	justify-content: space-between;
-}
-
-.breakTime{
-	height: 400px;
-	width: 30%;
+	justify-content: center;
 	position: relative;
 }
 
+.breakTime{
+	height: 60vh;
+	width: 50%;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+
+.breakTime .dec{
+	position: absolute;
+	left: -45%;
+	top: 70%;
+}
+
+.break{
+	position: absolute;
+	left: -30%;
+	top: 55%;
+}
+
+.breakTime h2{
+	position: absolute;
+	left: -50%;
+	top: 10%;
+}
+
+.breakTime .inc{
+	position: absolute;
+	left: -45%;
+	top: 30%;
+}
+
 .breakBar{
-	height: 100%;
+	height: 0%;
 	width: 100%;
 	background: green;
 	position: absolute;
@@ -23,13 +59,49 @@ h1{
 }
 
 #clock{
-	width: 30%;
+	height: 5vh;
+	width: 50%;
+	border: 1px solid purple;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	bottom: -65vh;
 }
 
 .sessionTime{
-	height: 400px;
-	width: 30%;
-	position: relative;
+	height: 60vh;
+	width: 50%;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+
+.sessionTime .dec{
+	position: absolute;
+	right: -45%;
+	top: 70%;
+}
+
+.session{
+	position: absolute;
+	right: -30%;
+	top: 55%;
+}
+
+.sessionTime h2{
+	position: absolute;
+	right: -50%;
+	top: 10%;
+}
+
+.sessionTime .inc{
+	position: absolute;
+	right: -45%;
+	top: 30%;
 }
 
 .sessBar{
@@ -40,27 +112,56 @@ h1{
 	bottom: 0;
 	z-index: -1;
 }
-
-.dec{
+/*Drawing the battery...*/
+.battery{
+	height: 60vh;
+	width: 50%;
 	position: absolute;
-	top: 50%;
-	left: 20%;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	border: 20px solid black;
+	top: -20px;
 }
 
-.inc{
-	position: absolute;
-	top: 50%;
-	right: 20%;
+.battery::after {
+ 	background-color: #000;
+ 	content: "";
+ 	display: block;
+ 	height: 10%;
+ 	top: -10%;
+ 	width: 30%;
+ 	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+ 	position: absolute;
 }
 
-.session{
+.bar1{
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 18%;
+	width: 102%;
+	height: 10vh;
+	transform: skew(0deg, 21deg);
+	background: black;
 }
 
-.break{
+.bar2{
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 63%;
+	width: 102%;
+	height: 10vh;
+	transform: skew(0deg, 21deg);
+	background: black;	
+}
+
+button{
+	height: 10vh;
+	width: 10vh;
+}
+
+#clock button{
+	height: 5vh;
 }
