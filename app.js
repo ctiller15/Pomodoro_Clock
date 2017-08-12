@@ -35,11 +35,8 @@ var breakTime = document.querySelector(".breakTimeLeft");
 var start = document.querySelector(".start");
 var pause = document.querySelector(".pause");
 
-var body = document.querySelector("body");
-var fa = document.querySelectorAll('.fa');
-var audio = document.querySelector("audio");
-
-
+var up = document.querySelector("#up");
+var down = document.querySelector("#down");
 
 // When called, increases value
 var increment = (obj, key, varName) => {
@@ -72,7 +69,6 @@ var primeButtons = (index, key, section ) => {
 			timer.textContent = timeObj.sessionLength + ":00";
 		}
 	});
-
 }
 
 // a basic function using setTimeout to count down for us.
@@ -90,14 +86,13 @@ var sessCountDown = (msSess) => {
 		} else {
 			message.textContent = "Time up!"
 			console.log("Timer has completed! Break time!");
-			audio.play();
+			down.play();
 			onBreak = true;
 			// once this section is reached, the break begins!
 			timeObj.timerHeight = msBreak;
 			console.log(timeObj.timerHeight);
-			body.style.color = "#00FF0D";
-			fa.forEach(function(elem){
-				elem.style.color = "#00FF0D";
+			document.querySelectorAll("*").forEach((item) => {
+				item.style.color = "#00FF0D";
 			});
 			setTimeout(() => {
 				breakCountDown(msBreak);
@@ -122,9 +117,14 @@ var breakCountDown = (msBreak) => {
 			}, 1000);
 		} else {
 			message.textContent = "recharged"
-			console.log("Timer has finished! Break over!");
+			document.querySelectorAll("*").forEach((item) => {
+				item.style.color = "#FFC800";
+			});
+			up.play();
 			onBreak = false;
 			isRunning = false;
+			breakBar.style.backgroundColor = "#FFC800"
+			sessBar.style.height = "100%";
 		}
 	}
 }
@@ -172,6 +172,7 @@ start.addEventListener("click", () => {
 	start.style.color = "#FFC800";
 	onBreak = false;
 	sessCountDown(timeObj.sessionLength * 60 * 1000, timeObj.breakLength * 60 * 1000);
+	breakBar.style.backgroundColor = "#00FF0D";
 });
 
 pause.addEventListener("click", () => {
@@ -200,12 +201,10 @@ pause.addEventListener("click", () => {
 			breakCountDown(timeObj.curBreakTime);
 			pause.innerHTML = '<i class="fa fa-pause after" aria-hidden="true"></i>';
 		}
-
 	}
 	paused = !paused;
 });
 
-body.style.color = 	"#FFC800";
-fa.forEach(function(elem){
-	elem.style.color = "#FFC800";
+document.querySelectorAll("*").forEach((item) => {
+	item.style.color = "#FFC800";
 });

@@ -8,9 +8,12 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<audio id="myAudio">
-  <source src="./sounds/Zen_Bell.mp3" type="audio/mpeg">
+<audio id="down">
+  <source src="./sounds/Power_down.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
+</audio>
+<audio id="up">
+	<source src="./sounds/Power_up.mp3" type="audio/mpeg">
 </audio>
 <h1>Pomodoro clock</h1>
 <!-- The main clock container -->
@@ -41,7 +44,7 @@
 	</div>
 	<div id="clock">
 		<div class="timer">25:00</div>
-		<div class="message">message</div>
+		<div class="message"></div>
 		<button class="start"><i class="fa fa-play" aria-hidden="true"></i></button>
 		<button class="pause"><i class="fa fa-pause" aria-hidden="true"></i></button>
 	</div>
